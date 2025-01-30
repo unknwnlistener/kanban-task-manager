@@ -2,12 +2,22 @@
 
 Following tutorial by FreeCodeCamp to build a Kanban task manager with updated toolkit.
 
+## Technologies Used
+
+- Next.js
+- next-auth.js
+- react-redux and redux-toolkit
+
 ## Changes from tutorial
 
 The tutorial is a year old and the technologies used have been changed for this project. I will keep documenting the changes as I go along.
 
 1. Next.js routing through the `App router` instead of the original `Page router`
 2. Authentication through `Auth.js` instead of `Next-auth.js`
+
+Removing the login and changing storage to local storage for the first iteration. I will look into integrating Firebase as a DB in the future.
+
+Adding feature to store to localStorage and retrieve from local storage.
 
 ## Getting Started
 
@@ -43,3 +53,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 - [FreeCodeCamp tutorial article](https://www.freecodecamp.org/news/build-full-stack-app-with-typescript-nextjs-redux-toolkit-firebase/)
 - [Hello-pangea/dnd Github](https://github.com/hello-pangea/dnd) - Replacement DND library as the `React-beautiful-dnd` library mentioned in the article is deprecated now.
 - [Auth.js - Next JS](https://authjs.dev/getting-started/installation?framework=next-js)
+- [Redux toolkit tutorial](https://youtu.be/5yEG6GhoJBs?si=SZSyZG9lFRQ0T0f3)

@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import UserAvatar from "@/components/user-avatar";
-import { SignOut } from "./signout-button";
+import SignOut from "./signout-button";
 import SignIn from "./signin-button";
 
 export default async function SigninComponent() {
@@ -9,7 +9,7 @@ export default async function SigninComponent() {
     return (
         <>
             {session ?
-                <div>
+                <div className="flex flex-nowrap">
                     <UserAvatar />
                     <SignOut />
                 </div>
