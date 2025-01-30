@@ -20,34 +20,17 @@ export interface Board {
     columns: Column[]
 }
 
-const getInitialState = () => {
-    const localData = localStorage.getItem('boards');
-    let boardData: { boards: Board[] };
-    if (localData && localData !== "") {
-        boardData = JSON.parse(localData);
-    } else {
-        boardData = data;
-    }
-    return {
-        currentBoard: boardData.boards[1],
-        boardModal: { isOpen: false, content: "" }
-    }
+const initialState = {
+    currentBoard: data.boards[0] as Board,
+    boardModal: { isOpen: false, content: "" }
 };
 
 export const featureSlice = createSlice({
     name: "features",
-    initialState: getInitialState(),
+    initialState,
     reducers: {
         setBoard: (state, action: PayloadAction<Board>) => {
             state.currentBoard = action.payload;
-        },
-        saveBoard: (state) => {
-            const newData = JSON.parse(JSON.stringify(data));
-            const boardIndex = data.boards.findIndex(board => board.id === state.currentBoard.id);
-            if (boardIndex !== -1) {
-                newData.boards[boardIndex] = state.currentBoard;
-            }
-            localStorage.setItem("boards", JSON.stringify(newData));
         },
         openBoardModal: (state, action: PayloadAction<string>) => {
             state.boardModal.isOpen = true;
@@ -60,6 +43,6 @@ export const featureSlice = createSlice({
     }
 })
 
-export const { setBoard, saveBoard, openBoardModal, closeBoardModal } = featureSlice.actions;
+export const { setBoard, openBoardModal, closeBoardModal } = featureSlice.actions;
 
 export default featureSlice.reducer;
