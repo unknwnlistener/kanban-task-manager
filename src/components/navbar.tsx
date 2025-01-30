@@ -22,6 +22,10 @@ export default function Navbar() {
     //     }
     // }, [dispatch]);
 
+    useEffect(() => {
+        dispatch(setBoard(localData.boards[0]))
+    }, [dispatch, localData])
+
     const saveBoardState = () => {
         const newData = JSON.parse(JSON.stringify(data));
         const boardIndex = data.boards.findIndex(board => board.id === currentBoard.id);
