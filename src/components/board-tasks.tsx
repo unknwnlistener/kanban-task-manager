@@ -1,6 +1,6 @@
 'use client';
 
-import { type Board, type Column, openBoardModal } from "@/state/features/featureSlice";
+import { type Board, openBoardModal } from "@/state/features/featureSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { useEffect, useState } from "react";
 

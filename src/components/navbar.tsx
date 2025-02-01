@@ -1,11 +1,10 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dropdown from "@/components/dropdown"
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import { openBoardModal, setActiveBoardId } from "@/state/features/featureSlice";
+import { openBoardModal } from "@/state/features/featureSlice";
 import { useLocalStorage } from "@/utils/use-local-storage";
-// import { data } from "@/utils/data";
 
 export default function Navbar() {
     const boards = useAppSelector((state) => state.feature.boards);
@@ -14,19 +13,6 @@ export default function Navbar() {
     const activeBoardId = useAppSelector((state) => state.feature.activeBoardId);
     const currentBoard = localData.find((board) => board.id === activeBoardId);
     const dispatch = useAppDispatch();
-
-    // Effect hook to run when the data updates
-    // useEffect(() => {
-    //     if (data) {
-    //         // When a user signs in, set the currentBoardName to the first board's name
-    //         const activeBoard = data.boards[0];
-    //         dispatch(setBoardName(activeBoard.name));
-    //     }
-    // }, [dispatch]);
-
-    // useEffect(() => {
-    //     dispatch(setActiveBoardId(localData[0].id))
-    // }, [dispatch, localData])
 
     const saveBoardState = () => {
         const newData = JSON.parse(JSON.stringify(localData));
