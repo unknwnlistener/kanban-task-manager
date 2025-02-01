@@ -4,6 +4,11 @@ import { closeBoardModal } from "@/state/features/featureSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
+import AddNewTaskForm from "./add-new-task-form";
+import EditBoardForm from "./edit-board-form";
+import DeleteBoardForm from "./delete-board-form";
+import { X } from "lucide-react";
+import AddNewColumnForm from "./add-new-column-form";
 
 interface ModalProps {
     size?: "base" | "large" | "xlarge";
@@ -11,8 +16,7 @@ interface ModalProps {
 export default function PopupModal({ size = "base" }: ModalProps) {
     const dialogRef = useRef<HTMLDialogElement>(null);
 
-    const modalContent = useAppSelector((state) => state.feature.boardModal.content);
-    const modalIsOpen = useAppSelector((state) => state.feature.boardModal.isOpen);
+    const boardModal = useAppSelector((state) => state.feature.boardModal);
     const dispatch = useAppDispatch();
 
     const showModal = () => {
@@ -24,11 +28,11 @@ export default function PopupModal({ size = "base" }: ModalProps) {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
-        if (modalIsOpen)
+        if (boardModal.isOpen)
             showModal();
         else
             closeModal();
-    }, [modalIsOpen]);
+    }, [boardModal]);
 
     const handleCloseModal = () => {
         dispatch(closeBoardModal());
@@ -48,6 +52,19 @@ export default function PopupModal({ size = "base" }: ModalProps) {
                 return "md:w-1/2";
             case "xlarge":
                 return "w-full";
+        }
+    }
+
+    const showForm = (variant: string) => {
+        switch (variant) {
+            case "addNewTask":
+                return <AddNewTaskForm />
+            case "addNewColumn":
+                return <AddNewColumnForm onClose={handleCloseModal} />
+            case "editBoard":
+                return <EditBoardForm />
+            case "deleteBoard":
+                return <DeleteBoardForm />
         }
     }
 
@@ -75,10 +92,10 @@ export default function PopupModal({ size = "base" }: ModalProps) {
     return (
         <dialog onKeyDown={handleKeyDown} ref={dialogRef} className={clsx("relative z-10 px-5 pt-10 pb-5 mx-auto bg-white border-2 rounded backdrop:bg-gray-800/50 w-full h-fit ", getSizeCss())}>
             <button type="button" data-test="modal_close_button" onClick={() => handleCloseModal()} className="absolute p-1 rounded-full top-4 right-4 hover:bg-gray-200">
-                <div className="text-gray-700 w-7 h-7" >X</div>
+                <X className="text-gray-700" />
             </button>
             <div className="mx-3 text-left">
-                {modalContent}
+                {showForm(boardModal.variant)}
             </div>
         </dialog>
     )

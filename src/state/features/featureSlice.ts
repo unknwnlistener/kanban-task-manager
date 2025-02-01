@@ -1,5 +1,5 @@
-import { data } from "@/utils/data";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { id } from "@/utils/data";
 
 export interface Task {
     id: string;
@@ -21,28 +21,57 @@ export interface Board {
 }
 
 const initialState = {
-    currentBoard: data.boards[0] as Board,
-    boardModal: { isOpen: false, content: "" }
+    activeBoardId: "",
+    boards: [] as Board[],
+    boardModal: { isOpen: false, variant: "" }
 };
+
+const getNewBoard = (name: string) => {
+    return {
+        id: id(),
+        name: name,
+        columns: [] as Column[]
+    }
+}
+const getNewColumn = (name: string) => {
+    return {
+        id: id(),
+        name: name,
+        tasks: [] as Task[]
+    }
+}
 
 export const featureSlice = createSlice({
     name: "features",
     initialState,
     reducers: {
-        setBoard: (state, action: PayloadAction<Board>) => {
-            state.currentBoard = action.payload;
+        setActiveBoardId: (state, action: PayloadAction<string>) => {
+            state.activeBoardId = action.payload;
+        },
+        createNewBoard: (state, action: PayloadAction<string>) => {
+            if (action.payload === "")
+                return;
+            const newBoard = getNewBoard(action.payload);
+            state.boards.push(newBoard)
+        },
+        addNewColumn: (state, action: PayloadAction<{ name: string, boardId: string }>) => {
+            const boardIndex = state.boards.findIndex((board) => board.id === action.payload.boardId);
+            const newColumn = getNewColumn(action.payload.name);
+            if (boardIndex !== -1) {
+                state.boards[boardIndex].columns.push(newColumn);
+            }
         },
         openBoardModal: (state, action: PayloadAction<string>) => {
             state.boardModal.isOpen = true;
-            state.boardModal.content = action.payload
+            state.boardModal.variant = action.payload
         },
         closeBoardModal: (state) => {
             state.boardModal.isOpen = false;
-            state.boardModal.content = ""
+            state.boardModal.variant = ""
         }
     }
 })
 
-export const { setBoard, openBoardModal, closeBoardModal } = featureSlice.actions;
+export const { setActiveBoardId, createNewBoard, addNewColumn, openBoardModal, closeBoardModal } = featureSlice.actions;
 
 export default featureSlice.reducer;

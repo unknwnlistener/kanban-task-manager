@@ -14,10 +14,10 @@ export default function Dropdown({ show }: Dropdown) {
             className={clsx(show ? "block" : "hidden", "w-48 absolute top-full bg-white border shadow-lg right-0 py-2 rounded-2xl")}
         >
             <div className="hover:bg-gray-300">
-                <button onClick={() => dispatch(openBoardModal("Edit Board"))} type="button" className="text-sm px-4 py-2">Edit Board</button>
+                <button onClick={() => dispatch(openBoardModal("editBoard"))} type="button" className="text-sm px-4 py-2">Edit Board</button>
             </div>
             <div className="hover:bg-gray-300">
-                <button onClick={() => dispatch(openBoardModal("Delete Board"))} type="button" className="text-sm px-4 py-2">
+                <button onClick={() => dispatch(openBoardModal("deleteBoard"))} type="button" className="text-sm px-4 py-2">
                     Delete Board
                 </button>
             </div>
