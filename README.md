@@ -14,6 +14,7 @@ The tutorial is a year old and the technologies used have been changed for this 
 
 1. Next.js routing through the `App router` instead of the original `Page router`
 2. Authentication through `Auth.js` instead of `Next-auth.js`
+3. Using package `@hello-pangea/dnd` instead of deprecated `react-beautiful-dnd`.
 
 Removing the login and changing storage to local storage for the first iteration. I will look into integrating Firebase as a DB in the future.
 

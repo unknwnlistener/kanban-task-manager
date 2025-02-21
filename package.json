@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gpush": "npm run lint && npm run build && git push"
+    "gpush": "next lint && next build && git push"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^18.0.1",
     "@reduxjs/toolkit": "^2.5.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.474.0",
