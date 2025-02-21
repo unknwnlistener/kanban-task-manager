@@ -62,6 +62,7 @@ export const featureSlice = createSlice({
                 return;
             const newBoard = getNewBoard(action.payload);
             state.boards.push(newBoard)
+            state.activeBoardId = newBoard.id;
         },
         addNewColumn: (state, action: PayloadAction<string>) => {
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
