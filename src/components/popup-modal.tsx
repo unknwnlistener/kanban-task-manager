@@ -4,11 +4,9 @@ import { closeBoardModal } from "@/state/features/featureSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import AddNewTaskForm from "./add-new-task-form";
 import EditBoardForm from "./edit-board-form";
 import DeleteBoardForm from "./delete-board-form";
 import { X } from "lucide-react";
-import AddNewColumnForm from "./add-new-column-form";
 
 interface ModalProps {
     size?: "base" | "large" | "xlarge";

@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Dropdown from "@/components/dropdown"
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import { openBoardModal } from "@/state/features/featureSlice";
+import { useAppSelector } from "@/state/hooks";
 import { useLocalStorage } from "@/utils/use-local-storage";
 
 export default function Navbar() {
@@ -12,7 +11,6 @@ export default function Navbar() {
     const [show, setShow] = useState(false);
     const activeBoardId = useAppSelector((state) => state.feature.activeBoardId);
     const currentBoard = localData.find((board) => board.id === activeBoardId);
-    const dispatch = useAppDispatch();
 
     const saveBoardState = () => {
         const newData = JSON.parse(JSON.stringify(localData));

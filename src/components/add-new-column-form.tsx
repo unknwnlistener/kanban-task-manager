@@ -1,5 +1,5 @@
 import { addNewColumn } from "@/state/features/featureSlice";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch } from "@/state/hooks";
 import { X } from "lucide-react";
 import Form from "next/form";
 

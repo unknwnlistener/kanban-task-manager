@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gpush": "npm run lint && npm run build && git push"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
