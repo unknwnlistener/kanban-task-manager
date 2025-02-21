@@ -3,6 +3,7 @@
 import { type Board, openBoardModal } from "@/state/features/featureSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { useEffect, useState } from "react";
+import ColumnComponent from "./column-component";
 
 export default function BoardTasks() {
     const [currentBoard, setCurrentBoard] = useState<Board>();
@@ -33,38 +34,7 @@ export default function BoardTasks() {
                 :
                 currentBoard.columns && currentBoard.columns.length > 0 ? (
                     <div className="flex space-x-6">
-                        {currentBoard.columns.map((column) => {
-                            const { id, name, tasks } = column;
-                            return (
-                                <div key={id} className="w-[17.5rem] shrink-0">
-                                    <p className="text-black">{`${name} (${tasks ? tasks?.length : 0
-                                        })`}</p>
-
-                                    {tasks &&
-                                        // Display the tasks if there are tasks in the column, if not, display an empty column
-                                        (tasks.length > 0 ? (
-                                            tasks.map((task) => {
-                                                const { id, title } = task;
-
-                                                return (
-                                                    <div
-                                                        key={id}
-                                                        className="bg-white p-6 rounded-md mt-6 flex items-center justify-between border"
-                                                    >
-                                                        <p>{title}</p>
-                                                        <div className="flex items-center space-x-1">
-                                                            {/* <MdEdit className="text-lg cursor-pointer" />
-                                                        <MdDelete className="text-lg cursor-pointer text-red-500" /> */}
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })
-                                        ) : (
-                                            <div className="mt-6 h-full rounded-md border-dashed border-4 border-white" />
-                                        ))}
-                                </div>
-                            );
-                        })}
+                        {currentBoard.columns.map((column) => <ColumnComponent key={column.id} column={column} />)}
                         {/* If the number of columns of tasks is less than 7, display an option to add more columns */}
                         {currentBoard.columns && currentBoard.columns.length < 7 && (
                             <div className="w-[17.5rem] shrink-0">
