@@ -75,6 +75,11 @@ export const featureSlice = createSlice({
             const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
             state.boards[currentBoardIndex].columns[currentColumnIndex].tasks.push(getNewTask(action.payload.task.title, action.payload.task.description));
         },
+        editColumnName: (state, action: PayloadAction<{ name: string, columnId: string }>) => {
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
+            state.boards[currentBoardIndex].columns[currentColumnIndex].name = action.payload.name;
+        },
         openBoardModal: (state, action: PayloadAction<string>) => {
             state.boardModal.isOpen = true;
             state.boardModal.variant = action.payload
@@ -86,6 +91,6 @@ export const featureSlice = createSlice({
     }
 })
 
-export const { setActiveBoardId, createNewBoard, addNewColumn, addNewTask, openBoardModal, closeBoardModal } = featureSlice.actions;
+export const { setActiveBoardId, createNewBoard, addNewColumn, addNewTask, editColumnName, openBoardModal, closeBoardModal } = featureSlice.actions;
 
 export default featureSlice.reducer;

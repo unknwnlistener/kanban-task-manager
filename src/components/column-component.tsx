@@ -2,20 +2,26 @@ import type { Column } from "@/state/features/featureSlice";
 import { Edit } from "lucide-react";
 import { useState } from "react";
 import AddNewTaskForm from "./add-new-task-form";
+import EditColumnForm from "./edit-column-form";
 
 export default function ColumnComponent({ column }: { column: Column }) {
-    const [showForm, setShowForm] = useState(false);
+    const [showTaskForm, setShowTaskForm] = useState(false);
+    const [showNameEdit, setShowNameEdit] = useState(false);
     const { id, name, tasks } = column;
     return (
         <>
             <div key={id} className="w-[17.5rem] shrink-0">
-                <div className="flex">
-                    <p className="text-black">{`${name} (${tasks ? tasks?.length : 0
-                        })`}</p>
-                    <button type="button">
-                        <Edit />
-                    </button>
-                </div>
+                {showNameEdit ?
+                    <EditColumnForm columnName={name} columnId={id} onClose={() => setShowNameEdit(false)} />
+                    :
+                    <div className="flex">
+                        <p className="text-black">{`${name} (${tasks ? tasks?.length : 0
+                            })`}</p>
+                        <button type="button" onClick={() => setShowNameEdit(true)}>
+                            <Edit />
+                        </button>
+                    </div>
+                }
 
                 {tasks &&
                     <div className="mt-6 h-full rounded-md bg-white flex flex-col items-start justify-between p-4">
@@ -38,10 +44,10 @@ export default function ColumnComponent({ column }: { column: Column }) {
                                 })
                             ))}
                         </div>
-                        {showForm &&
-                            <AddNewTaskForm columnId={column.id} onClose={() => setShowForm(false)} />
+                        {showTaskForm &&
+                            <AddNewTaskForm columnId={column.id} onClose={() => setShowTaskForm(false)} />
                         }
-                        <button type="button" onClick={() => setShowForm(true)} className="">Add new task</button>
+                        <button type="button" onClick={() => setShowTaskForm(true)} className="">Add new task</button>
                     </div>
                 }
             </div>

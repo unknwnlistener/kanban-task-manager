@@ -35,7 +35,7 @@ export default function BoardTasks() {
                 :
                 <div className="flex space-x-6">
                     {currentBoard.columns && currentBoard.columns.length > 0 && (
-                        currentBoard.columns.map((column) => <ColumnComponent key={column.id} column={column} />)
+                        currentBoard.columns.map((column) => <ColumnComponent key={column.id + column.name} column={column} />)
                     )}
                     {showNewColumn && (
                         <div className="w-[17.5rem] shrink-0 mt-12">
