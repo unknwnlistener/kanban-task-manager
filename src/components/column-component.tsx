@@ -41,7 +41,7 @@ export default function ColumnComponent({ column }: { column: Column }) {
                         {showForm &&
                             <AddNewTaskForm columnId={column.id} onClose={() => setShowForm(false)} />
                         }
-                        <button onClick={() => setShowForm(true)} className="">Add new task</button>
+                        <button type="button" onClick={() => setShowForm(true)} className="">Add new task</button>
                     </div>
                 }
             </div>

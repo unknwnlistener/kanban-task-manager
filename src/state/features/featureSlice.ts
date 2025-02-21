@@ -63,11 +63,11 @@ export const featureSlice = createSlice({
             const newBoard = getNewBoard(action.payload);
             state.boards.push(newBoard)
         },
-        addNewColumn: (state, action: PayloadAction<{ name: string, boardId: string }>) => {
-            const boardIndex = state.boards.findIndex((board) => board.id === action.payload.boardId);
-            const newColumn = getNewColumn(action.payload.name);
-            if (boardIndex !== -1) {
-                state.boards[boardIndex].columns.push(newColumn);
+        addNewColumn: (state, action: PayloadAction<string>) => {
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            const newColumn = getNewColumn(action.payload);
+            if (currentBoardIndex !== -1) {
+                state.boards[currentBoardIndex].columns.push(newColumn);
             }
         },
         addNewTask: (state, action: PayloadAction<{ task: Omit<Task, "id" | "status">, columnId: string }>) => {
