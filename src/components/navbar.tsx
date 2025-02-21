@@ -38,9 +38,6 @@ export default function Navbar() {
                     <button onClick={saveBoardState} type="button" className="bg-blue-500 text-black px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Save Board</p>
                     </button>
-                    <button onClick={() => dispatch(openBoardModal("addNewTask"))} type="button" className="bg-blue-500 text-black px-4 py-2 flex rounded-3xl items-center space-x-2">
-                        <p>+ Add New Task</p>
-                    </button>
                     <div className="relative flex items-center">
                         <button type="button" className="text-3xl mb-4" onClick={() => setShow(show => !show)}>...</button>
                         <Dropdown show={show} />

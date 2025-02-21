@@ -11,7 +11,7 @@ export interface Task {
 export interface Column {
     id: string;
     name: string;
-    tasks?: Task[];
+    tasks: Task[];
 }
 
 export interface Board {
@@ -41,6 +41,15 @@ const getNewColumn = (name: string) => {
     }
 }
 
+const getNewTask = (title: string, description?: string) => {
+    return {
+        id: id(),
+        title: title,
+        description: description,
+        status: "created"
+    }
+}
+
 export const featureSlice = createSlice({
     name: "features",
     initialState,
@@ -61,6 +70,11 @@ export const featureSlice = createSlice({
                 state.boards[boardIndex].columns.push(newColumn);
             }
         },
+        addNewTask: (state, action: PayloadAction<{ task: Omit<Task, "id" | "status">, columnId: string }>) => {
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
+            state.boards[currentBoardIndex].columns[currentColumnIndex].tasks.push(getNewTask(action.payload.task.title, action.payload.task.description));
+        },
         openBoardModal: (state, action: PayloadAction<string>) => {
             state.boardModal.isOpen = true;
             state.boardModal.variant = action.payload
@@ -72,6 +86,6 @@ export const featureSlice = createSlice({
     }
 })
 
-export const { setActiveBoardId, createNewBoard, addNewColumn, openBoardModal, closeBoardModal } = featureSlice.actions;
+export const { setActiveBoardId, createNewBoard, addNewColumn, addNewTask, openBoardModal, closeBoardModal } = featureSlice.actions;
 
 export default featureSlice.reducer;

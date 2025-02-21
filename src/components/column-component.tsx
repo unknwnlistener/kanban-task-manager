@@ -1,7 +1,10 @@
 import type { Column } from "@/state/features/featureSlice";
 import { Edit } from "lucide-react";
+import { useState } from "react";
+import AddNewTaskForm from "./add-new-task-form";
 
 export default function ColumnComponent({ column }: { column: Column }) {
+    const [showForm, setShowForm] = useState(false);
     const { id, name, tasks } = column;
     return (
         <>
@@ -15,27 +18,32 @@ export default function ColumnComponent({ column }: { column: Column }) {
                 </div>
 
                 {tasks &&
-                    // Display the tasks if there are tasks in the column, if not, display an empty column
-                    (tasks.length > 0 ? (
-                        tasks.map((task) => {
-                            const { id, title } = task;
-
-                            return (
-                                <div
-                                    key={id}
-                                    className="bg-white p-6 rounded-md mt-6 flex items-center justify-between border"
-                                >
-                                    <p>{title}</p>
-                                    <div className="flex items-center space-x-1">
-                                        {/* <MdEdit className="text-lg cursor-pointer" />
-                                                        <MdDelete className="text-lg cursor-pointer text-red-500" /> */}
-                                    </div>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <div className="mt-6 h-full rounded-md border-dashed border-4 border-white" />
-                    ))}
+                    <div className="mt-6 h-full rounded-md bg-white flex flex-col items-start justify-between p-4">
+                        <div className="space-y-2 w-full">
+                            {((tasks.length > 0) && (
+                                tasks.map((task) => {
+                                    const { id, title } = task;
+                                    return (
+                                        <div
+                                            key={id}
+                                            className="bg-white w-full p-2 rounded-md flex items-center justify-between border"
+                                        >
+                                            <p>{title}</p>
+                                            <div className="flex items-center space-x-1">
+                                                {/* <MdEdit className="text-lg cursor-pointer" />
+                                                            <MdDelete className="text-lg cursor-pointer text-red-500" /> */}
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            ))}
+                        </div>
+                        {showForm &&
+                            <AddNewTaskForm columnId={column.id} onClose={() => setShowForm(false)} />
+                        }
+                        <button onClick={() => setShowForm(true)} className="">Add new task</button>
+                    </div>
+                }
             </div>
         </>
     )

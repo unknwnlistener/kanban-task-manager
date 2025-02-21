@@ -57,8 +57,6 @@ export default function PopupModal({ size = "base" }: ModalProps) {
 
     const showForm = (variant: string) => {
         switch (variant) {
-            case "addNewTask":
-                return <AddNewTaskForm />
             case "addNewColumn":
                 return <AddNewColumnForm onClose={handleCloseModal} />
             case "editBoard":
