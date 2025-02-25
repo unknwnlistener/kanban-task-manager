@@ -10,11 +10,11 @@ import clsx from "clsx";
 export default function ColumnComponent({ column }: { column: Column }) {
     const [showTaskForm, setShowTaskForm] = useState(false);
     const [showNameEdit, setShowNameEdit] = useState(false);
-    const { id, name, tasks } = column;
+    const { id: columnId, name, tasks } = column;
     return (
-        <div key={id} className="w-[17.5rem] shrink-0 text-black">
+        <div key={columnId} className="w-[17.5rem] shrink-0 text-black">
             {showNameEdit ?
-                <EditColumnForm columnName={name} columnId={id} onClose={() => setShowNameEdit(false)} />
+                <EditColumnForm columnName={name} columnId={columnId} onClose={() => setShowNameEdit(false)} />
                 :
                 <div className="flex text-white">
                     <p>{`${name} (${tasks ? tasks?.length : 0
@@ -25,7 +25,7 @@ export default function ColumnComponent({ column }: { column: Column }) {
                 </div>
             }
 
-            <Droppable droppableId={id}>
+            <Droppable droppableId={columnId}>
                 {(provided) => (tasks &&
                     <div
                         className={clsx("bg-slate-100", "mt-6 transition-colors duration-300 h-full rounded-md flex flex-col items-start justify-between p-4 text-black")}
@@ -38,7 +38,7 @@ export default function ColumnComponent({ column }: { column: Column }) {
                             {provided.placeholder}
                         </div>
                         {showTaskForm &&
-                            <AddNewTaskForm columnId={column.id} onClose={() => setShowTaskForm(false)} />
+                            <AddNewTaskForm columnId={columnId} onClose={() => setShowTaskForm(false)} />
                         }
                         <button type="button" onClick={() => setShowTaskForm(true)} className="text-gray-700">Add new task</button>
                     </div>
