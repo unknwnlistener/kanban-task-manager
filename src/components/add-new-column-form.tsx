@@ -12,9 +12,9 @@ export default function AddNewColumnForm({ onClose }: { onClose: () => void }) {
     }
     return (
         <Form action={createColumn}>
-            <div className="flex flex-col gap-1">
-                <label htmlFor="columnName" className="sr-only">Column Name</label>
-                <input type="text" name="columnName" />
+            <div className="flex flex-col gap-1 text-black">
+                <label htmlFor="columnName" className="sr-only" aria-required>Column Name</label>
+                <input type="text" name="columnName" required />
                 <div className="flex gap w-full">
                     <button type="submit" className="p-2 bg-blue-600 text-white rounded-full grow">+ Add</button>
                     <button type="button" onClick={() => onClose()}><X /></button>

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
 import EditBoardForm from "./edit-board-form";
-import DeleteBoardForm from "./delete-board-form";
+import RemoveBoardForm from "./remove-board-form";
 import { X } from "lucide-react";
 
 interface ModalProps {
@@ -57,8 +57,8 @@ export default function PopupModal({ size = "base" }: ModalProps) {
         switch (variant) {
             case "editBoard":
                 return <EditBoardForm />
-            case "deleteBoard":
-                return <DeleteBoardForm />
+            case "removeBoard":
+                return <RemoveBoardForm onClose={handleCloseModal} />
         }
     }
 

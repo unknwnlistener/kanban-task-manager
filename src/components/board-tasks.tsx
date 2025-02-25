@@ -17,6 +17,8 @@ export default function BoardTasks() {
         if (activeBoardId) {
             const foundIndex = boards.findIndex((board) => board.id === activeBoardId);
             if (foundIndex !== -1) setCurrentBoard(boards[foundIndex]);
+        } else {
+            setCurrentBoard(undefined);
         }
     }, [activeBoardId, boards]);
 

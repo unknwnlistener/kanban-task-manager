@@ -65,6 +65,8 @@ export const featureSlice = createSlice({
             state.activeBoardId = newBoard.id;
         },
         addNewColumn: (state, action: PayloadAction<string>) => {
+            if (action.payload === "")
+                return;
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
             const newColumn = getNewColumn(action.payload);
             if (currentBoardIndex !== -1) {
@@ -77,6 +79,8 @@ export const featureSlice = createSlice({
             state.boards[currentBoardIndex].columns[currentColumnIndex].tasks.push(getNewTask(action.payload.task.title, action.payload.task.description));
         },
         editColumnName: (state, action: PayloadAction<{ name: string, columnId: string }>) => {
+            if (action.payload.name === "")
+                return;
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
             const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
             state.boards[currentBoardIndex].columns[currentColumnIndex].name = action.payload.name;
@@ -88,10 +92,21 @@ export const featureSlice = createSlice({
         closeBoardModal: (state) => {
             state.boardModal.isOpen = false;
             state.boardModal.variant = ""
+        },
+        clearBoard: (state) => {
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            state.boards[currentBoardIndex].columns = [];
+        },
+        removeBoard: (state) => {
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            if (currentBoardIndex !== -1) {
+                state.activeBoardId = "";
+                state.boards.splice(currentBoardIndex, 1);
+            }
         }
     }
 })
 
-export const { setActiveBoardId, createNewBoard, addNewColumn, addNewTask, editColumnName, openBoardModal, closeBoardModal } = featureSlice.actions;
+export const { setActiveBoardId, createNewBoard, addNewColumn, addNewTask, editColumnName, openBoardModal, closeBoardModal, clearBoard, removeBoard } = featureSlice.actions;
 
 export default featureSlice.reducer;

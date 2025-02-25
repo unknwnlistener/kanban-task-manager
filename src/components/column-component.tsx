@@ -40,7 +40,7 @@ export default function ColumnComponent({ column }: { column: Column }) {
                         {showTaskForm &&
                             <AddNewTaskForm columnId={column.id} onClose={() => setShowTaskForm(false)} />
                         }
-                        <button type="button" onClick={() => setShowTaskForm(true)} className="">Add new task</button>
+                        <button type="button" onClick={() => setShowTaskForm(true)} className="text-gray-700">Add new task</button>
                     </div>
                 )}
             </Droppable>

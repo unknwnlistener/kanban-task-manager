@@ -10,7 +10,7 @@ export default function TaskComponent({ task, index }: { task: Task, index: numb
                 <div
                     ref={provided.innerRef}
                     key={id}
-                    className={clsx(snapshot.isDragging ? "bg-blue-100" : "bg-white", "w-full p-2 rounded-md flex items-center justify-between border")}
+                    className={clsx(snapshot.isDragging ? "bg-blue-100 border border-black" : "bg-white", "w-full p-2 rounded-md flex items-center justify-between border", "transition")}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
