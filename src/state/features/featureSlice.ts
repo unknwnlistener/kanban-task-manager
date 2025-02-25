@@ -73,6 +73,13 @@ export const featureSlice = createSlice({
                 state.boards[currentBoardIndex].columns.push(newColumn);
             }
         },
+        removeColumn: (state, action: PayloadAction<{ columnId: string }>) => {
+            const { columnId } = action.payload;
+            if (columnId === "")
+                return;
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            state.boards[currentBoardIndex].columns = state.boards[currentBoardIndex].columns.filter((column) => column.id !== columnId);
+        },
         addNewTask: (state, action: PayloadAction<{ task: Omit<Task, "id" | "status">, columnId: string }>) => {
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
             const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
@@ -122,6 +129,7 @@ export const {
     setActiveBoardId,
     createNewBoard,
     addNewColumn,
+    removeColumn,
     addNewTask,
     removeTask,
     editColumnName,

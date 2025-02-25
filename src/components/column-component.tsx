@@ -1,13 +1,15 @@
-import type { Column } from "@/state/features/featureSlice";
-import { Edit } from "lucide-react";
+import { removeColumn, type Column } from "@/state/features/featureSlice";
+import { Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
 import AddNewTaskForm from "./add-new-task-form";
 import EditColumnForm from "./edit-column-form";
 import { Droppable } from "@hello-pangea/dnd";
 import TaskComponent from "./task-component";
 import clsx from "clsx";
+import { useAppDispatch } from "@/state/hooks";
 
 export default function ColumnComponent({ column }: { column: Column }) {
+    const dispatch = useAppDispatch();
     const [showTaskForm, setShowTaskForm] = useState(false);
     const [showNameEdit, setShowNameEdit] = useState(false);
     const { id: columnId, name, tasks } = column;
@@ -16,12 +18,16 @@ export default function ColumnComponent({ column }: { column: Column }) {
             {showNameEdit ?
                 <EditColumnForm columnName={name} columnId={columnId} onClose={() => setShowNameEdit(false)} />
                 :
-                <div className="flex text-white">
+                <div className="flex gap-1 text-white">
                     <p>{`${name} (${tasks ? tasks?.length : 0
                         })`}</p>
                     <button type="button" onClick={() => setShowNameEdit(true)}>
                         <Edit />
                     </button>
+                    <button type="button" onClick={() => dispatch(removeColumn({ columnId }))}>
+                        <Trash2 />
+                    </button>
+
                 </div>
             }
 
