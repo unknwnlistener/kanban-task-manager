@@ -16,12 +16,7 @@ export default function Navbar() {
     const dispatch = useAppDispatch();
 
     const saveBoardState = () => {
-        const newData = JSON.parse(JSON.stringify(localData));
-        const boardIndex = localData.findIndex(board => board.id === activeBoardId);
-        if (boardIndex !== -1) {
-            newData[boardIndex] = currentBoard;
-        }
-        setLocalData(newData);
+        setLocalData(boards);
     }
 
     return (
@@ -36,7 +31,7 @@ export default function Navbar() {
                 </p>
 
                 <div className="flex items-center space-x-3">
-                    <button onClick={saveBoardState} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
+                    <button onClick={() => saveBoardState()} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Save Board</p>
                     </button>
                     <button onClick={() => dispatch(openBoardModal('clearBoard'))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
