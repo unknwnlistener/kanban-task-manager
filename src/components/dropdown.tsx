@@ -6,21 +6,21 @@ interface Dropdown {
     show: boolean
 }
 
-export default function Dropdown({ show }: Dropdown) {
+export default function Dropdown({ boardId }: { boardId: string }) {
     const dispatch = useAppDispatch();
 
     return (
-        <div
-            className={clsx(show ? "block" : "hidden", "w-48 absolute top-full bg-white border shadow-lg right-0 py-2 rounded-2xl")}
+        <ul
+            className={clsx("z-10 w-48 absolute top-full bg-white border shadow-lg right-0 rounded-lg overflow-clip")}
         >
-            <div className="hover:bg-gray-300">
-                <button onClick={() => dispatch(openBoardModal("editBoard"))} type="button" className="text-sm px-4 py-2">Edit Board</button>
-            </div>
-            <div className="hover:bg-gray-300">
-                <button onClick={() => dispatch(openBoardModal("deleteBoard"))} type="button" className="text-sm px-4 py-2">
-                    Delete Board
+            <li className="hover:bg-gray-100">
+                <button onClick={() => dispatch(openBoardModal({ variant: "editBoard", boardId: boardId }))} type="button" className="text-sm text-left p-4 w-full">Edit Board</button>
+            </li>
+            <li className="hover:bg-gray-100">
+                <button onClick={() => dispatch(openBoardModal({ variant: "removeBoard", boardId: boardId }))} type="button" className="text-sm text-left p-4 w-full">
+                    Remove Board
                 </button>
-            </div>
-        </div>
+            </li>
+        </ul>
     )
 }

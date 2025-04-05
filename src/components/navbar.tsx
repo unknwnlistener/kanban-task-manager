@@ -1,21 +1,20 @@
 'use client'
 
 // import { useState } from "react";
-// import Dropdown from "@/components/dropdown"
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { useLocalStorage } from "@/utils/use-local-storage";
-import { clearBoard, openBoardModal } from "@/state/features/featureSlice";
+import { openBoardModal } from "@/state/features/featureSlice";
 
 export default function Navbar() {
-    const boards = useAppSelector((state) => state.feature.boards);
-    const [localData, setLocalData] = useLocalStorage('boards', boards);
-    // const [show, setShow] = useState(false);
     const activeBoardId = useAppSelector((state) => state.feature.activeBoardId);
-    const currentBoard = localData.find((board) => board.id === activeBoardId);
+    const boards = useAppSelector((state) => state.feature.boards);
+    const [, setLocalData] = useLocalStorage('boards', boards);
+    const currentBoard = boards.find((board) => board.id === activeBoardId);
 
     const dispatch = useAppDispatch();
 
     const saveBoardState = () => {
+        alert("Board state saved to local storage");
         setLocalData(boards);
     }
 
@@ -34,12 +33,12 @@ export default function Navbar() {
                     <button onClick={() => saveBoardState()} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Save Board</p>
                     </button>
-                    <button onClick={() => dispatch(openBoardModal('clearBoard'))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
+                    <button onClick={() => dispatch(openBoardModal({ variant: 'clearBoard', boardId: activeBoardId }))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Clear Board</p>
                     </button>
-                    <button onClick={() => dispatch(openBoardModal('removeBoard'))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
+                    {/* <button onClick={() => dispatch(openBoardModal('removeBoard'))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Remove Board</p>
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </nav>

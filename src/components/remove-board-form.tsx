@@ -2,12 +2,12 @@ import { removeBoard } from "@/state/features/featureSlice";
 import { useAppDispatch } from "@/state/hooks";
 import Form from "next/form";
 
-export default function RemoveBoardForm({ onClose }: { onClose: () => void }) {
+export default function RemoveBoardForm({ onClose, boardId }: { onClose: () => void, boardId: string }) {
     const dispatch = useAppDispatch();
 
     const removeBoardAction = () => {
         onClose();
-        dispatch(removeBoard());
+        dispatch(removeBoard(boardId));
     }
     return (
         <Form action={removeBoardAction} className="flex flex-col gap-2 items-center">

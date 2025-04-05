@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import CreateNewBoardForm from "./create-new-board-form";
+import BoardDropdown from "./board-dropdown";
 
 export default function Sidebar() {
     const [createActive, setCreateActive] = useState<boolean>(false);
@@ -28,15 +29,16 @@ export default function Sidebar() {
                             {`All Boards (${boards.length})`}
                         </p>
                         {boards.map(({ name, id }) => (
-                            <button
-                                type="button"
-                                key={id}
-                                onClick={() => handleNav(id)}
-                                className={clsx((id === activeBoardId ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'), 'rounded-tr-full rounded-br-full cursor-pointer flex  items-center space-x-2 pl-[2.12rem] py-3 pb-3 w-full ')}
-                            >
-                                <p className="text-lg capitalize">{name}</p>
-                            </button>
-
+                            <div key={id} className="flex items-center space-x-2 justify-start">
+                                <button
+                                    type="button"
+                                    onClick={() => handleNav(id)}
+                                    className={clsx((id === activeBoardId ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'), 'rounded-tr-full rounded-br-full cursor-pointer text-left pl-[2.12rem] py-3 pb-3 w-full ')}
+                                >
+                                    <p className="text-lg capitalize">{name}</p>
+                                </button>
+                                <BoardDropdown boardId={id} />
+                            </div>
                         ))}
                     </>
                 )

@@ -57,11 +57,11 @@ export default function PopupModal({ size = "base" }: ModalProps) {
     const showForm = (variant: string) => {
         switch (variant) {
             case "editBoard":
-                return <EditBoardForm />
+                return <EditBoardForm onClose={handleCloseModal} boardId={boardModal.boardId} />
             case "clearBoard":
                 return <ClearBoardForm onClose={handleCloseModal} />
             case "removeBoard":
-                return <RemoveBoardForm onClose={handleCloseModal} />
+                return <RemoveBoardForm onClose={handleCloseModal} boardId={boardModal.boardId} />
         }
     }
 
@@ -88,7 +88,7 @@ export default function PopupModal({ size = "base" }: ModalProps) {
 
     return (
         <dialog onKeyDown={handleKeyDown} ref={dialogRef} className={clsx("relative z-10 px-5 pt-10 pb-5 mx-auto bg-white border-2 rounded backdrop:bg-gray-800/50 w-full h-fit ", getSizeCss())}>
-            <button type="button" data-test="modal_close_button" onClick={() => handleCloseModal()} className="absolute p-1 rounded-full top-4 right-4 hover:bg-gray-200">
+            <button type="button" onClick={() => handleCloseModal()} className="absolute p-1 rounded-full top-4 right-4 hover:bg-gray-200">
                 <X className="text-gray-700" />
             </button>
             <div className="mx-3 text-left">

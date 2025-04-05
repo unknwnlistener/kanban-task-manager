@@ -25,7 +25,7 @@ const localData: Board[] = JSON.parse(localStorage.getItem("boards") ?? "[]");
 const initialState = {
     activeBoardId: "",
     boards: localData?.length === 0 ? [] as Board[] : localData,
-    boardModal: { isOpen: false, variant: "" }
+    boardModal: { isOpen: false, variant: "", boardId: "" }
 };
 
 const getNewBoard = (name: string) => {
@@ -66,6 +66,12 @@ export const featureSlice = createSlice({
             state.boards.push(newBoard)
             state.activeBoardId = newBoard.id;
         },
+        editBoardName: (state, action: PayloadAction<{ name: string, boardId: string }>) => {
+            if (action.payload.name === "" || action.payload.boardId === "")
+                return;
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === action.payload.boardId);
+            state.boards[currentBoardIndex].name = action.payload.name;
+        },
         addNewColumn: (state, action: PayloadAction<string>) => {
             if (action.payload === "")
                 return;
@@ -81,6 +87,13 @@ export const featureSlice = createSlice({
                 return;
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
             state.boards[currentBoardIndex].columns = state.boards[currentBoardIndex].columns.filter((column) => column.id !== columnId);
+        },
+        editColumnName: (state, action: PayloadAction<{ name: string, columnId: string }>) => {
+            if (action.payload.name === "")
+                return;
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+            const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
+            state.boards[currentBoardIndex].columns[currentColumnIndex].name = action.payload.name;
         },
         addNewTask: (state, action: PayloadAction<{ task: Omit<Task, "id" | "status">, columnId: string }>) => {
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
@@ -98,27 +111,24 @@ export const featureSlice = createSlice({
                 return newColumn;
             });
         },
-        editColumnName: (state, action: PayloadAction<{ name: string, columnId: string }>) => {
-            if (action.payload.name === "")
-                return;
-            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
-            const currentColumnIndex = state.boards[currentBoardIndex].columns.findIndex((column) => column.id === action.payload.columnId);
-            state.boards[currentBoardIndex].columns[currentColumnIndex].name = action.payload.name;
-        },
-        openBoardModal: (state, action: PayloadAction<string>) => {
+
+        openBoardModal: (state, action: PayloadAction<{ variant: string, boardId: string }>) => {
+            state.boardModal.variant = action.payload.variant
+            state.boardModal.boardId = action.payload.boardId
             state.boardModal.isOpen = true;
-            state.boardModal.variant = action.payload
+
         },
         closeBoardModal: (state) => {
-            state.boardModal.isOpen = false;
             state.boardModal.variant = ""
+            state.boardModal.boardId = ""
+            state.boardModal.isOpen = false;
         },
         clearBoard: (state) => {
             const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
             state.boards[currentBoardIndex].columns = [];
         },
-        removeBoard: (state) => {
-            const currentBoardIndex = state.boards.findIndex((board) => board.id === state.activeBoardId);
+        removeBoard: (state, action: PayloadAction<string>) => {
+            const currentBoardIndex = state.boards.findIndex((board) => board.id === action.payload);
             if (currentBoardIndex !== -1) {
                 state.activeBoardId = "";
                 state.boards.splice(currentBoardIndex, 1);
@@ -130,6 +140,7 @@ export const featureSlice = createSlice({
 export const {
     setActiveBoardId,
     createNewBoard,
+    editBoardName,
     addNewColumn,
     removeColumn,
     addNewTask,
