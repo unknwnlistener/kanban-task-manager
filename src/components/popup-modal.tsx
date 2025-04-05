@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import EditBoardForm from "./edit-board-form";
 import RemoveBoardForm from "./remove-board-form";
 import { X } from "lucide-react";
+import ClearBoardForm from "./clear-board-form";
 
 interface ModalProps {
     size?: "base" | "large" | "xlarge";
@@ -57,6 +58,8 @@ export default function PopupModal({ size = "base" }: ModalProps) {
         switch (variant) {
             case "editBoard":
                 return <EditBoardForm />
+            case "clearBoard":
+                return <ClearBoardForm onClose={handleCloseModal} />
             case "removeBoard":
                 return <RemoveBoardForm onClose={handleCloseModal} />
         }

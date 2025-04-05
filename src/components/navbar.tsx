@@ -39,7 +39,7 @@ export default function Navbar() {
                     <button onClick={saveBoardState} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Save Board</p>
                     </button>
-                    <button onClick={() => dispatch(clearBoard())} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
+                    <button onClick={() => dispatch(openBoardModal('clearBoard'))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
                         <p>Clear Board</p>
                     </button>
                     <button onClick={() => dispatch(openBoardModal('removeBoard'))} type="button" className="bg-blue-500 text-white px-4 py-2 flex rounded-3xl items-center space-x-2">
