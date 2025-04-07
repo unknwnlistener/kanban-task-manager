@@ -16,7 +16,7 @@ export default function EditColumnForm({ columnName, columnId, onClose }: { colu
                 <label htmlFor="columnName" className="sr-only">Column Name</label>
                 <input type="text" name="columnName" defaultValue={columnName} />
                 <div className="flex gap w-full">
-                    <button type="submit" className="p-2 text-blue-600 rounded-full"><Save /></button>
+                    <button type="submit" className="p-2 rounded-full"><Save /></button>
                     <button type="button" onClick={() => onClose()}><X /></button>
                 </div>
             </div>

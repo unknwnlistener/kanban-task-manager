@@ -65,8 +65,8 @@ export default function BoardTasks() {
                 (
                     <div className="w-full h-full flex justify-center items-center">
                         <div className="flex flex-col items-center">
-                            <p className="text-black text-sm">
-                                No board found. Create a new board in the sidebar.
+                            <p className="text-white">
+                                Select or "Create New Board" from the sidebar.
                             </p>
                         </div>
                     </div>
