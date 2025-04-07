@@ -20,7 +20,9 @@ export interface Board {
     columns: Column[]
 }
 
-const localData: Board[] = JSON.parse(localStorage.getItem("boards") ?? "[]");
+const localData: Board[] = typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("boards") ?? "[]")
+    : [];
 
 const initialState = {
     activeBoardId: "",
